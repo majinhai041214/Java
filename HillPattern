@@ -1,0 +1,103 @@
+import java.util.Scanner;
+
+public class HillPattern {
+    public static void main(String[] args) {
+        System.out.printf("input size:");
+        Scanner sc = new Scanner(System.in);
+        int size = sc.nextInt();
+        if (args[0].equals("a")) {
+            for (int j = 0; j < size + 1; j++) {
+                for (int i = 1; i < size - j + 1; i++) {
+                    System.out.printf("  ");
+                }
+                for (int k = 1; k <= 2 * j - 1; k++) {
+                    System.out.printf("* ");
+                }
+                for (int i = 1; i < size - j; i++) {
+                    System.out.printf("  ");
+                }
+                System.out.printf("\n");
+            }
+        } else {
+            if (args[0].equals("b")) {
+                for (int i = 0; i < size; i++) {
+                    for (int j = 0; j < i; j++) {
+                        System.out.printf("  ");
+                    }
+                    for (int k = 0; k < 2 * (size - i) - 1; k++) {
+                        System.out.printf("* ");
+                    }
+                    for (int j = 0; j < i; j++) {
+                        System.out.printf("  ");
+                    }
+                    System.out.printf("\n");
+                }
+            } else {
+                if (args[0].equals("c")) {
+                    for (int j = 0; j < size + 1; j++) {
+                        for (int i = 1; i < size - j + 1; i++) {
+                            System.out.printf("  ");
+                        }
+                        for (int k = 1; k <= 2 * j - 1; k++) {
+                            System.out.printf("* ");
+                        }
+                        for (int i = 1; i < size - j; i++) {
+                            System.out.printf("  ");
+                        }
+                        System.out.printf("\n");
+                    }
+                    for (int i = 0; i < size - 1; i++) {
+                        for (int j = 0; j < i + 1; j++) {
+                            System.out.printf("  ");
+                        }
+                        for (int k = 0; k < 2 * (size - 1 - i) - 1; k++) {
+                            System.out.printf("* ");
+                        }
+                        for (int j = 0; j < i; j++) {
+                            System.out.printf("  ");
+                        }
+                        System.out.printf("\n");
+                    }
+                } else {
+                    if (args[0].equals("d")) {
+                        for(int i=1;i<size+1;i++){
+                            for(int j=0;j<size-i+1;j++){
+                                System.out.printf("* ");
+                            }
+                            for(int j=0;j<i-1;j++){
+                                System.out.printf("  ");
+                            }
+                            for(int j=0;j<i-1;j++){
+                                System.out.printf("  ");
+                            }
+                            for(int j=0;j<size-i+1;j++){
+                                System.out.printf("* ");
+                            }
+
+                                System.out.printf("\n");
+
+
+                        }
+
+                        for(int i=2;i<=size;i++){//i表示行数
+                            for(int j=0;j<i;j++){
+                                System.out.printf("* ");
+                            }
+                            for(int j=0;j<size-i;j++){
+                                System.out.printf("  ");
+                            }
+                            for(int j=0;j<size-i;j++){
+                                System.out.printf("  ");
+                            }
+                            for(int j=0;j<i;j++){
+                                System.out.printf("* ");
+                            }
+                            System.out.printf("\n");
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
