@@ -1,0 +1,149 @@
+package com.example.project.submodule;
+public class DateUtil {
+    public static class data {
+
+        public static boolean isLeapYear(int year) {
+            boolean bool = false;
+            if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
+                bool = true;
+            }
+            return bool;
+        }
+
+
+        //    验证日期的合法性
+        public static boolean isValidDate(int year, int month, int day) {
+            boolean bool = true;
+            if (year < 0 || year > 9999) {
+                bool = false;
+            } else {
+                if (month > 12 || month < 0) {
+                    bool = false;
+                } else {
+                    if (day < 0 || day > 31) {
+                        bool = false;
+                    } else {
+                        if (month == 4 || month == 6 || month == 9 || month == 11) {
+                            if (day > 30) {
+                                bool = false;
+                            }
+                        }
+                        if (month == 2) {
+                            if (isLeapYear(year)) {
+                                if (day > 29) {
+                                    bool = false;
+                                }
+                            } else {
+                                if (day > 28) {
+                                    bool = false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return bool;
+        }
+
+
+        //计算星期几
+        public static int getDayOfWeek(int year, int month, int day) {
+            int num = 0;
+            int x = year / 100;
+            int[] number = new int[]{4, 2, 0, 6};
+            int i = (x - 17) % 4;
+            x = number[i] + year % 100 + (int) (year % 100) / 4;
+//        ?参考第31行
+            if (isLeapYear(year)) {
+                int[] montharry = new int[]{6, 2, 3, 6, 1, 4, 6, 2, 5, 0, 3, 5};
+                x = x + montharry[month - 1];
+            } else {
+                int[] montharry = new int[]{0, 3, 3, 6, 1, 4, 6, 2, 5, 0, 3, 5};
+                x = x + montharry[month - 1];
+            }
+            x = (x + day) % 7;
+            return x;
+        }
+
+        public static int days(int year, int month) {
+            int daynum = 0;
+            if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
+                daynum = 31;
+            } else {
+                if (month == 4 || month == 6 || month == 9 || month == 11) {
+                    daynum = 30;
+                } else {
+                    if (month == 2) {
+                        if (isLeapYear(year)) {
+                            daynum = 29;
+                        } else {
+                            daynum = 28;
+                        }
+                    }
+                }
+            }
+            return daynum;
+        }
+
+        public static void printCalendar(int year, int month) {
+            int x = getDayOfWeek(year, month, 1);
+            if(x==0){
+                x=7;
+            }
+            System.out.print("MON TUE WEN THU FRI SAT SUN\n");
+
+            for (int i = 1; i <= days(year, month); i++) {
+
+                if(i==1){
+                    for(int j=0;j<x-1;j++){
+                        System.out.printf("    ");
+                    }
+                }
+                if(i<10){
+                    System.out.printf("  %d ",i);
+                }else{
+                    System.out.printf(" %d ",i);
+                }
+                if((i+x-1)%7==0){
+                    System.out.printf("\n");
+                }
+            }
+            System.out.printf("\n\n");
+        }
+
+        public static void printCalendar(int year){
+            for(int i=1;i<=12;i++){
+                System.out.printf("%d月\n",i);
+                printCalendar(year,i);
+            }
+        }
+
+        public static String formatDate(int year, int month, int day){
+            StringBuilder format=new StringBuilder();
+            int x=getDayOfWeek(year,month,day);
+            if(x==0){
+                x=7;
+            }
+            String[] daysOfWeek = new String[]{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+            format.append(daysOfWeek[x-1]).append(" ");
+            format.append(year).append("年 ").append(month).append("月 ").append(day).append("日 ");
+            return format.toString();
+        }
+
+
+    public static void main(String[] args) {
+        data year = new data();
+        boolean bool = year.isValidDate(2023, 3, 21);
+        if (bool) {
+            System.out.printf("合法\n");
+        } else {
+            System.out.printf("非法");
+        }
+        int x = year.getDayOfWeek(2024, 1, 1);
+        year.printCalendar(2024, 9);
+        year.printCalendar(2024);
+        System.out.print(year.formatDate(2012,2,12));
+
+    }
+}
+}
